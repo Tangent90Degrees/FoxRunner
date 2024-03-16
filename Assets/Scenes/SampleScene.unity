@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1115686368}
   - component: {fileID: 1115686367}
   - component: {fileID: 1115686366}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2025,6 +2025,9 @@ GameObject:
   - component: {fileID: 1774936651}
   - component: {fileID: 1774936654}
   - component: {fileID: 1774936653}
+  - component: {fileID: 1774936655}
+  - component: {fileID: 1774936656}
+  - component: {fileID: 1774936657}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Untagged
@@ -2161,6 +2164,50 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1774936655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774936650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6b462c018f64e5fb5165d64b63f3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1774936656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774936650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c690b841c44b4495be9c1e4e1767e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
+  jumpForce: 15
+--- !u!114 &1774936657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774936650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5116ff36ea8497abfa866b2ae6a7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ground:
+    <Origin>k__BackingField: {x: 0, y: 0}
+    <Range>k__BackingField: 0.25
+    <Layer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 1024
 --- !u!1 &1876953463
 GameObject:
   m_ObjectHideFlags: 0
