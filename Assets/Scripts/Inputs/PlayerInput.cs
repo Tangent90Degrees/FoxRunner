@@ -7,11 +7,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerInput : MonoBehaviour
 {
-    public event Action<InputAction.CallbackContext> JumpPressed
-    {
-        add => _input.Gameplay.Fire.started += value;
-        remove => _input.Gameplay.Fire.started -= value;
-    }
+    public ButtonInput Jump;
     
     /// <summary>
     /// The vector2 value read from player move input.
@@ -21,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         _input = new InputSystem();
+        Jump = new ButtonInput(_input.Gameplay.Jump);
     }
 
     private void OnEnable()
@@ -34,4 +31,26 @@ public class PlayerInput : MonoBehaviour
     }
 
     private InputSystem _input;
+
+    public class ButtonInput
+    {
+        public ButtonInput(InputAction input)
+        {
+            _input = input;
+        }
+        
+        public event Action<InputAction.CallbackContext> Pressed
+        {
+            add => _input.started += value;
+            remove => _input.started -= value;
+        }
+        
+        public event Action<InputAction.CallbackContext> Released
+        {
+            add => _input.canceled += value;
+            remove => _input.canceled -= value;
+        }
+        
+        private readonly InputAction _input;
+    }
 }

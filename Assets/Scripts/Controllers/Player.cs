@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
 
     [SerializeField] private float jumpForce;
+    [SerializeField] private float keepJumpingForce;
+    [SerializeField] private float keepJumpingDuration;
+
+    public float HorizontalMove => _input.Move.x;
     
     private void Awake()
     {
@@ -20,29 +25,60 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        _input.JumpPressed += Jump;
+        _input.Jump.Pressed += Jump;
+        _input.Jump.Released += StopJumping;
+    }
+
+    private void OnDisable()
+    {
+        _input.Jump.Pressed -= Jump;
+        _input.Jump.Released -= StopJumping;
     }
 
     private void FixedUpdate()
     {
-        _rigidBody.velocity = new Vector2(speed * _input.Move.x, _rigidBody.velocity.y);
+        _rigidBody.velocity = new Vector2(speed * HorizontalMove, _rigidBody.velocity.y);
         
         var playerTransform = transform;
-        playerTransform.localScale = _input.Move.x switch
+        playerTransform.localScale = HorizontalMove switch
         {
             > 0 => new Vector3(1, 1, 1),
             < 0 => new Vector3(-1, 1, -1),
             _ => playerTransform.localScale
         };
+
+        KeepJumping();
     }
     
     private void Jump(InputAction.CallbackContext _)
     {
         if (!_environment.IsOnGround) return;
         _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpForce);
+        StartCoroutine(JumpForSeconds(keepJumpingDuration));
+        return;
+
+        IEnumerator JumpForSeconds(float duration)
+        {
+            _isJumping = true;
+            yield return new WaitForSeconds(duration);
+            _isJumping = false;
+        }
+    }
+
+    private void StopJumping(InputAction.CallbackContext _)
+    {
+        _isJumping = false;
+    }
+
+    private void KeepJumping()
+    {
+        if (!_isJumping) return;
+        _rigidBody.AddForce(keepJumpingForce * Vector2.up);
     }
 
     private Rigidbody2D _rigidBody;
     private PlayerInput _input;
     private PhysicsEnvironment _environment;
+
+    private bool _isJumping;
 }
