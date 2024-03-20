@@ -17,7 +17,7 @@ TagManager:
   - 
   - Ground
   - 
-  - 
+  - Block
   - 
   - 
   - 
@@ -40,6 +40,12 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 2927415125
+    locked: 0
+  - name: Wall
+    uniqueID: 2094536285
+    locked: 0
+  - name: Item
+    uniqueID: 2615759843
     locked: 0
   - name: Default
     uniqueID: 0
